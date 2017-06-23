@@ -28,6 +28,13 @@ public class MessageResource {
 	}
 	
 	@GET	//HTML Method
+	@Produces(MediaType.APPLICATION_JSON)		//specifies return type
+	@Path("/getJSONMessages")
+	public List<Message> getJSONMessages(){
+		return messageService.getAllMessages();
+	}
+	
+	@GET	//HTML Method
 	@Produces(MediaType.APPLICATION_XML)		//specifies return type
 	@Path("/getXMLMessage/{messageId}")
 	public Message getXMLMessage(@PathParam("messageId") long Id){
