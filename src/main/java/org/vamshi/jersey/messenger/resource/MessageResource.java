@@ -2,7 +2,9 @@ package org.vamshi.jersey.messenger.resource;
 
 import java.util.List;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -40,5 +42,22 @@ public class MessageResource {
 	public Message getXMLMessage(@PathParam("messageId") long Id){
 		//JAX-RS converts String to long .. cool
 		return messageService.getMessage(Id);
+	}
+	
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/addMessage")
+	/*Headers:
+	 * Content-Type:application/json
+	 *Message Body:
+	 * {
+        "author": "v4",
+        "created": "2017-06-23T14:48:10.128",
+        "message": "m4"
+    	}
+     */
+	public Message addMessage(Message message){
+		return messageService.addMessage(message);
 	}
 }
