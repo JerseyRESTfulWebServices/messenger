@@ -3,8 +3,10 @@ package org.vamshi.jersey.messenger.resource;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -59,5 +61,37 @@ public class MessageResource {
      */
 	public Message addMessage(Message message){
 		return messageService.addMessage(message);
+	}
+	
+	@PUT
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/updateMessage/{messageId}")
+	/*
+	 * http://localhost:8080/messenger/webapi/messages/updateMessage/1
+	 * {
+        "author": "v1",
+        "created": "2017-06-26T13:14:39.045",
+        "message": "m1!"
+    }
+	 */
+	public Message updateMessage(@PathParam("messageId") long Id,Message message){
+		message.setId(Id);
+		return messageService.UpdateMessage(message);
+	}
+	
+	@DELETE
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/deleteMessage/{messageId}")
+	/*
+	 * http://localhost:8080/messenger/webapi/messages/updateMessage/1
+	 * {
+        "author": "v1",
+        "created": "2017-06-26T13:14:39.045",
+        "message": "m1!"
+    }
+	 */
+	public Message deleteMessage(@PathParam("messageId") long Id){
+		return messageService.RemoveMessage(messageService.getMessage(Id));
 	}
 }
